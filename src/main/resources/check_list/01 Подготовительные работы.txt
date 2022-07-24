@@ -1,0 +1,34 @@
+Подготовительные работы.
+
+Создание нового проекта через Idea и Maven
+New project -> Maven -> Create from archetype ->
+maven-archetype-webapp
+Next
+
+Name - library
+GroupId - project.library
+ArtifactId - library
+
+---
+
+Копируем или создаем .gitignore и README.md
+в корне проекта
+
+---
+
+Создаем папочную структуру
+
+В контекстном меню папки main создаем
+папки java и resources.
+
+При необходимости 
+Отмечаем папку java как Source Root
+Отмечаем папку resources как Resource Root
+(в контекстном меню этих папок)
+
+В папке java создаем папку с названием проекта
+например library или project или ru.project.library,
+В этом пакете создаем основные папки проекта,
+config, controllers, dao, models, util
+В папке WEB-INF создаем папку views для
+представлений

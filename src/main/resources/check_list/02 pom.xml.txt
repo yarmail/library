@@ -1,0 +1,31 @@
+Работа с pom.xml
+
+Подключаем properties
+Подключаем базовые библиотеки Спринга
+в раздел dependency
+spring-core, spring-context, spring-web, spring-webmvc
+
+---
+
+Подключаем
+javax.servlet-api
+Зависимость используется абстрактным классом
+AbstractAnnotationConfigDispatcherServletInitializer
+в файле заменяющим web.xml
+
+---
+
+Подключаем Thymeleaf
+thymeleaf-spring5
+для упрощения работы с представлениям
+
+---
+
+Подключаем hibernate-validator для валидации моделей в представлении
+Для валидации и обработки сообщений от БД используется
+org.springframework.validation.Validator
+
+---
+
+Подключаем postgresql
+для подключекния к базе данных

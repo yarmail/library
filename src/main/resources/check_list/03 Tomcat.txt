@@ -1,0 +1,56 @@
+Подключаем Tomcat
+
+Для подключения Tomcat идем
+Run -> Edit Configurations...
+Нажимаем "+" (add new Configuration)
+и выбираем Tomcat Server - local
+
+Многие советуют использовать 9, а не 10 версию,
+у меня 9.0.58
+
+Проверяем заполнение граф:
+Вкладка Server
+Name - Tomcat 9.0.58
+Application server - Tomcat 9.0.58
+URL - http://localhost:8080/
+Также делаем Fix на
+Warning: No artifacts marked for deployment
+и выбираем library:war exploded
+
+---
+
+далее
+Во вкладке Deployment
+появляется выбраннный артефакт типа:
+library:war exploded
+
+Важный пункт в этой вкладке:
+Application context: /library_war_exploded
+можно заменить просто на: /
+тогда адрес обращения к сайту будет короче
+
+---
+
+Далее возвращаемся на вкладку Server
+и проверяем, что происходит при запуске
+нашей конфигурации Tomcat 9.0.58
+в окне Before launch. В нормальном варианте
+там два пункта:
+Build
+Build 'library:War exploded' artifact
+
+---
+
+Тестирование
+Проверяем как наш проект работает с сервером
+Запускаем сервер: Run -> Run 'Tomcat 9.0.58'
+Если все хорошо, то после запуска сервера вы должны
+увидеть запуск браузера а в нем, по адресу:
+http://localhost:8080/
+(если вы поменяли Application context) вы
+должны увидеть содержание файла index.jsp,
+который находится в папке
+src/main/webapp/index.jsp,
+который туда попал при установке из архетипа Maven.
+Как правило содержание этого файла: Hello World!
+
