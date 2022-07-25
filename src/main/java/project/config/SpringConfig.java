@@ -76,8 +76,7 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 }
 
-/*
-@PropertySource("classpath:database.properties")
+/** @PropertySource("classpath:database.properties")
 Здесь указываем, где хранятся настройки и доступы
 к  используемой базе данных.
 В данном случае этот файл находится в папке resources
@@ -86,17 +85,14 @@ import org.springframework.core.env.Environment;
 для подключения переменной environment
 к этим настройкам
 */
-/*
-Интерфейс WebMvcConfigurer реализуется,
+/** Интерфейс WebMvcConfigurer реализуется,
 когда мы под себя хотим настроить Spring MVC
  */
-/*
-@Configuration
+/** @Configuration
 Означает, что в это файле находится конфигурация проекта
 Как я понимаю, это может быть не один файл
  */
-/*
-@ComponentScan("project")
+/** @ComponentScan("project")
 Указываем Спрингу, какие папки сканировать,
 (находящиеся по уровню ниже java)
 в которых есть классы и методы,
@@ -104,8 +100,7 @@ import org.springframework.core.env.Environment;
 спринга например @Component @Controller
 которые могут понадобится спрингу для внедрения
  */
-/*
-@EnableWebMvc
+/** @EnableWebMvc
 эта аннотация разрешает нашему проекту использовать MVC;
 Это аналог команды
 <mvc:annotation-driven/>
@@ -114,8 +109,7 @@ applicationContextMVC.xml
 когда настройка проекта идет через
 web.xml и applicationContextMVC.xml
  */
-/*
-@Autowired
+/** @Autowired
 public SpringConfig()
 Внедрение компонентов может (и рекомендовано) производить через конструктор,
 с добавлением (по желанию) аннотации @Autowired
@@ -123,8 +117,7 @@ public SpringConfig()
 applicationContext мы используем, чтобы настроить в методе
 templateResolver() Thymeleaf
 */
-/*
-templateResolver(), templateEngine(), configureViewResolvers()
+/** templateResolver(), templateEngine(), configureViewResolvers()
 как я понимаю в этих методах мы подключаем шаблонизатор Thymeleaf
 к проекту, с указанием некоторых дополнитеьных настроек.
 В частности -
@@ -145,19 +138,16 @@ templateResolver.setCharacterEncoding("UTF-8");
 добавляется строка
 resolver.setCharacterEncoding("UTF-8");
  */
-/*
-После выполнения всех настроек можно удалить файл
-web.xml из папки WEB-INF, т.к. он не нужен
+/** После выполнения всех настроек
+можно удалить файл web.xml из папки WEB-INF,
+т.к. он не нужен
  */
-/*
-dataSource()
+/** dataSource()
 Как я понимаю, данный бин содержит настройки базы данных, которые
 будут использоваться JdbcTemplate
  */
-/*
-jdbcTemplate()
+/** jdbcTemplate()
 Создаем бин JdbcTemplate,
 который будет использовать
 бин DataSource
  */
-

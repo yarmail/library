@@ -47,8 +47,6 @@ public class Book {
         this.year = year;
     }
 }
-/*
-Делаем как в Person
- */
+/** Делаем как в Person*/
 
 

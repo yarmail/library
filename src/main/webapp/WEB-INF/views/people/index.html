@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<p>
+я страница index.html из папки people<br>
+controller people, метод index<br>
+выводим всех Person
+</p>
+
+<div th:each="person : ${people}">
+    <a th:href="@{/people/{id}(id=${person.getId()})}"
+       th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">user</a>
+</div>
+
+</body>
+</html>
+
+<!-- Пояснения
+
+th:each="person : ${people}
+{people} мы берем из PeopleController -
+model.addAttribute("people", personDAO.index());
+В данном случае в это переменной содержится
+список людей
+Таким образом вся запись - это foreach
+"Для каждого person из списка people"
+person также содержит свойства модели Person
+
+---
+
+<a th:href="@{/people/{id}(id=${person.getId()})}"
+мы делаем ссылку из
+начала адреса  /people/
+и id человека {id}
+где id=${person.getId()
+(person из foreach)
+
+---
+
+th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}"
+В тексте ссылки мы указываем нужные параметры
+person - (Person модели) это имя и дату рождения
+
+-->
+<!-- Примечания
+http://localhost:8080/people
+Запрос для проверки страницы
+
+xmlns:th="http://www.thymeleaf.org"
+не забываем подключать Thymeleaf
+к каждой странице
+
+Странно, что при показе этой
+страницы не отображается, что она index.html
+
+Страница будет отображаться если уже сделаны
+все слои и dao и контроллеры
+-->

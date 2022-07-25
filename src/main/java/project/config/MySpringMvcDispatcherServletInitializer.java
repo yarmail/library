@@ -52,42 +52,34 @@ public class MySpringMvcDispatcherServletInitializer
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
     }
 }
-/*
-Данный класс заменяет web.xml
-*/
-/*
-getRootConfigClasses()
+/** Данный класс заменяет web.xml */
+/** getRootConfigClasses()
 Пока не понятно, что он делает
  */
-/*
-getServletConfigClasses()
+/** getServletConfigClasses()
 return new Class[]{SpringConfig.class};
 мы прописываем путь к нашему классу,
 SpringConfig.java
 заменяющему applicationContextMVC.xml
 (находится как правило в той же папке)
 */
-/*
-getServletMappings()
+/** getServletMappings()
 return new String[]{"/"};
 мы прописываем зону действия - все файлы
 как в web.xml:
 <servlet-name>dispatcher</servlet-name>
 <url-pattern>/</url-pattern>
 */
-/*
-onStartup()
+/** onStartup()
 Как я понимаю, подключение методов (фильтров) при
 старте системы, в данном случае:
  */
-/*
-registerHiddenFieldFilter()
+/** registerHiddenFieldFilter()
 Добавляем фильтр для того, чтобы POST
 запросы со скрытым полем PATCH перенаправлялись
 на метод, который обрабатывает PATCH запросы
  */
-/*
-registerCharacterEncodingFilter()
+/** registerCharacterEncodingFilter()
 Еслия правильно понимаю, это фильтр, который
 позволяет установить кодировку символов
 (в нашем случае, UTF-8), что, в свою очередь
