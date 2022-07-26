@@ -20,4 +20,7 @@ Thymeleaf, JdbcTemplate<br><br>
 Элементы технического задания</a><br>
 
 <a href="src/main/resources/check_list">
-Чек лист некоторых работ в проекте по шагам</a>
+Чек лист некоторых работ в проекте по шагам</a><br>
+
+<a href="src/main/resources/pic">
+Скриншоты некоторых страниц работающего проекта</a><br>

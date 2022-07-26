@@ -76,6 +76,7 @@
       <!--
       JdbcTemplate для повышения
       удобства работы с DAO
+      (обертка над JDBC API)
       -->
     </dependency>
     <dependency>
@@ -86,7 +87,8 @@
       <!--
       Зависимость используется абстрактным классом
       AbstractAnnotationConfigDispatcherServletInitializer
-      в файле заменяющим web.xml
+      в файле MySpringMvcDispatcherServletInitializer.java,
+      заменяющим web.xml
       -->
     </dependency>
     <dependency>
@@ -154,5 +156,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>8</source>
+                  <target>8</target>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 </project>

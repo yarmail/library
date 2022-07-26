@@ -1,7 +1,7 @@
 package project.models;
 
 public class Person {
-    private int id;
+    private int personId;
     private String fullName;
     private int yearOfBirth;
 
@@ -13,12 +13,12 @@ public class Person {
         this.yearOfBirth = yearOfBirth;
     }
 
-    public int getId() {
-        return id;
+    public int getPersonId() {
+        return personId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public String getFullName() {
@@ -35,6 +35,15 @@ public class Person {
 
     public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personId=" + personId +
+                ", fullName='" + fullName + '\'' +
+                ", yearOfBirth=" + yearOfBirth +
+                '}';
     }
 }
 

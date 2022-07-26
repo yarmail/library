@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import project.models.Book;
 import project.models.Person;
 import java.util.List;
 
@@ -18,8 +19,21 @@ public class PersonDAO {
     }
 
     public List<Person> index() {
-        return jdbcTemplate.query("select * from Person",
+        List<Person> people = jdbcTemplate.query("select * from Person",
                 new BeanPropertyRowMapper<>(Person.class));
+        System.out.println(people);
+        return people;
+    }
+
+    public Person show(int id) {
+        return jdbcTemplate.query("select * from Person where person_id=?",
+                new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).
+                stream().findAny().orElse(null);
+    }
+
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("select * from Book where person_id=?",
+                new  Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
 }
 /** JdbcTemplate
@@ -57,4 +71,24 @@ RowMapper в отдельном классе PersonMapper,
 а потом заменить RowMapper на нашу реализацию
 Далее можно сделать соотвествующий метод контроллера,
 который будет использовать данный метод
+
+System.out.println(people);
+добавленно временно, для примера,
+чтобы посмотреть в консоли,  что именно забирается из БД
+и передается в контроллер, можно упростить, если не нужно
+
+ */
+/** show(), getBooksByPersonId()
+ show() -  показать одного, если такой есть
+ (поиск по id) или вернуть null.  Также можно сделать
+ Optional<Person> show(int id)
+ но в конце будет только .findAny() (без orElse)
+ ---
+ Так как на странице представления мы должны
+ показать не только пользователя, но и все его
+ книги добавляем ещё метод
+ getBooksByPersonId()
+ В этом методе мы берем id (который мы будем получать
+ из вызова и по нему находим все его книги в таблице
+ Book через внешний ключ person_id
  */

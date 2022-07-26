@@ -13,7 +13,7 @@ controller people, метод index<br>
 </p>
 
 <div th:each="person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}"
+    <a th:href="@{/people/{id}(id=${person.getPersonId()})}"
        th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">user</a>
 </div>
 

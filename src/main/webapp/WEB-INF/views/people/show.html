@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Show</title>
+</head>
+<body>
+<p>
+    я страница show.html из папки people<br>
+    controller people, метод show<br>
+    выводим все книги конкретного person
+</p>
+
+<p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">VALUE</p>
+
+<div th:if="${books.isEmpty()}">
+    <p>Человек пока не взял ни одной книги</p>
+    <hr/>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <hr/>
+    <b>Книги:</b>
+    <br/>
+    <table th:each="book : ${books}">
+        <tr th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</tr>
+    </table>
+    <hr/>
+</div>
+
+<!-- Пояснения
+Сюда из контроллера были отправлены две переменные
+"person" и "books" содержащие все данные конкретного
+person и список его книг (если он есть)
+
+th:text= ...
+Выводим данные person
+
+th:if="${books.isEmpty()}">
+Если список книг пустой, показывается этот div
+и выводится надпись Человек пока не взял ни одной книги
+
+th:if="${!books.isEmpty()}
+Если список книг не пустой, показывается этот div
+и выводятся его книги
+
+th:each="book : ${books}
+как foreach (для каждой книги из списка)
+th:text=...
+выводятся её данные
+-->
+<!-- Примечания
+В моем случае должно быть так:
+
+http://localhost:8080/people/1
+Тестируем первый вариант -
+"Человек пока не взял ни одной книги"
+
+http://localhost:8080/people/2
+Должно вывести 3 книги
+Это регулируется заполнением колонки
+person_id в таблице Book
+
+Помимо прямых ссылок сюда можно попасть
+со страницы index, нажав на соответсвующего person
+-->

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.dao.PersonDAO;
 
@@ -22,6 +23,13 @@ public class PeopleController {
     public String index(Model model) {
         model.addAttribute("people", personDAO.index());
         return "people/index";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("books", personDAO.getBooksByPersonId(id));
+        return "people/show";
     }
 }
 /** @RequestMapping("/people")
@@ -49,4 +57,23 @@ public class PeopleController {
  views, сделать people, а в нем index.html
  и потом протестировать все слои сделав
  запрос http://localhost:8080/people
+ */
+/** show() - показать человека и все его книги
+
+@GetMapping("/{id}")
+Мы получаем запрос с id со страницы показа всех людей (index)
+типа "people/3", и показываем его на странице  "people/show"
+
+@PathVariable("id") int id
+С помощью этой аннотации мы извлекаем из гет запроса
+выше {id}, присваиваем его переменной int id и опираемся
+на него при вызове определенного человека по его id
+и других действиях
+
+Model model
+Используем переменную типа Model
+для передачи нужных переменных - "person" и "books"
+в представление people/show
+
+Далее создаем соотвествующее представление
  */
