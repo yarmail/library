@@ -35,6 +35,11 @@ public class PersonDAO {
         return jdbcTemplate.query("select * from Book where person_id=?",
                 new  Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
+
+    public void save(Person person) {
+        jdbcTemplate.update("insert into Person(full_name, year_of_birth) values (?, ?)",
+                person.getFullName(), person.getYearOfBirth());
+    }
 }
 /** JdbcTemplate
 
@@ -91,4 +96,9 @@ System.out.println(people);
  В этом методе мы берем id (который мы будем получать
  из вызова и по нему находим все его книги в таблице
  Book через внешний ключ person_id
+ */
+/** save()
+ Этот метод мы используем для сохранения информации о новом Person
+ полученной с формы на странице
+
  */

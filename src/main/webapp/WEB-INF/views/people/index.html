@@ -10,12 +10,15 @@
 я страница index.html из папки people<br>
 controller people, метод index<br>
 выводим всех Person
-</p>
+</p><br><br>
 
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getPersonId()})}"
        th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">user</a>
-</div>
+</div><br><br>
+<hr/>
+
+<a href="/people/new">Добавить человека</a>
 
 </body>
 </html>
@@ -45,8 +48,8 @@ person также содержит свойства модели Person
 th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}"
 В тексте ссылки мы указываем нужные параметры
 person - (Person модели) это имя и дату рождения
-
 -->
+
 <!-- Примечания
 http://localhost:8080/people
 Запрос для проверки страницы
@@ -58,6 +61,11 @@ xmlns:th="http://www.thymeleaf.org"
 Странно, что при показе этой
 страницы не отображается, что она index.html
 
-Страница будет отображаться если уже сделаны
+Страница будет отображаться, если уже сделаны
 все слои и dao и контроллеры
+
+По мере добавления функционала добавляем ссылки.
+/people/new
+Добавляем ссылку для создания новой формы,
+для добавления нового Person
 -->

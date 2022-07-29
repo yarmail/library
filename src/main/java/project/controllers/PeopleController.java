@@ -3,10 +3,9 @@ package project.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import project.dao.PersonDAO;
+import project.models.Person;
 
 @Controller
 @RequestMapping("/people")
@@ -30,6 +29,17 @@ public class PeopleController {
         model.addAttribute("person", personDAO.show(id));
         model.addAttribute("books", personDAO.getBooksByPersonId(id));
         return "people/show";
+    }
+    @GetMapping("/new")
+    public String newPerson(Model model) {
+        model.addAttribute("person", new Person());
+        return "people/new";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("person") Person person) {
+        personDAO.save(person);
+        return "redirect:/people";
     }
 }
 /** @RequestMapping("/people")
@@ -76,4 +86,19 @@ Model model
 в представление people/show
 
 Далее создаем соотвествующее представление
+ */
+/** newPerson() create()  - методы для создания нового Person
+ newPerson()
+ Данный контроллер обрабатывает GET запрос (ссылку)
+ people/new и возвращает эту страницу с формой,
+ добавляя туда пустой объект для заполнения
+
+ create()
+ Обрабатывет запрос из формы в представлении, отправленные
+ по адресу /people Post запросом, получает заполненный
+ объект и сохраняет его в БД
+ После обработки формы перенаправляемся
+ на страницу /people, чтобы увидеть вновь созданного
+ Person в общем списке
+
  */

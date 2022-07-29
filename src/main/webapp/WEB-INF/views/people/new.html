@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+
+<p>
+    я страница new.html из папки people<br>
+    controller people, методы newPerson(), create() <br>
+    создаем нового Person
+</p><br><br>
+<hr/>
+
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <label for="fullName">Введите ФИО:</label>
+    <input type="text" th:field="*{fullName}" id="fullName"/><br><br>
+
+    <label for="yearOfBirth">Введите год рождения: </label>
+    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
+
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>
+
+<!-- Пояснения
+Метод контроллера newPerson() посылает на эту страницу
+после обработки запроса people/new
+(также ссылка на эту страницу идет с index.html)
+и присылает сюда пустой объект Person ("person")для заполнения
+Также можно протестировать прямой ссылкой
+http://localhost:8080/people/new
+
+th:method="POST" th:action="@{/people}"
+указвают контроллеру PeopleController какой
+метод использовать для обработки данной формы,
+(после нажатия кнопки Create)
+а именно create() сюда подходит
+
+th:object="${person}
+Указывает какой объект (переменная) будет
+заполняться и отправляться контроллеру create() на обработку
+-->
