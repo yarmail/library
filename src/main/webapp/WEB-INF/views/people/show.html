@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,7 +10,7 @@
     я страница show.html из папки people<br>
     controller people, метод show<br>
     выводим все книги конкретного person
-</p>
+</p><br/><br/>
 
 <p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">VALUE</p>
 
@@ -28,6 +28,18 @@
     </table>
     <hr/>
 </div>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getPersonId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPersonId()})}">
+      <input type="submit" value="Удалить"/>
+</form>
+
+</body>
+</html>
+
 
 <!-- Пояснения
 Сюда из контроллера были отправлены две переменные
@@ -49,6 +61,17 @@ th:each="book : ${books}
 как foreach (для каждой книги из списка)
 th:text=...
 выводятся её данные
+
+Как понятно по ссылкам ниже,
+после того как мы показали person
+у нас есть возможность его редактировать
+и удалить
+
+people/{id}
+id мы берем у этого же person,
+которого сюда прислали
+id=${person.getPersonId()
+
 -->
 <!-- Примечания
 В моем случае должно быть так:
@@ -64,4 +87,9 @@ person_id в таблице Book
 
 Помимо прямых ссылок сюда можно попасть
 со страницы index, нажав на соответсвующего person
+
+Показав данные конктретного пользователя и
+зная его id мы можем теперь его отредактировать или удалить
+Не забываем что ссылки начинаются со слеша (от корня)
+th:action="@{/people/{id}
 -->

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Person</title>
+</head>
+<body>
+
+<p>
+    я страница edit.html из папки people<br>
+    controller people, метод edit<br>
+    На этой странице редактируем Person
+</p><br/><br/>
+
+<form th:method="PATCH" th:action="@{/people/{id}(id=${person.getPersonId()})}" th:object="${person}">
+    <label for="fullName">Введите ФИО:</label>
+    <input type="text" th:field="*{fullName}" id="fullName"/><br/>
+
+    <label for="yearOfBirth">Введите год рождения:</label>
+    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/><br/>
+    <input type="submit" value="Редактировать"/>
+</form>
+
+</body>
+</html>
+
+<!-- Пояснения
+
+Для этой страницы мы получаем объект "person" конкретного Person из
+метода edit() контроллера PeopleController:
+model.addAttribute("person", personDAO.show(id));
+
+А генерируем ссылку типа:
+th:action=@{/people/{id}
+для метода того же контроллера update()
+
+id берем из объекта, пересланного сюда.
+id=${person.getPersonId()
+
+Также из данных формы мы создаем новый объект
+(переменную) "person", которую также отправляем
+в метод update()
+(@ModelAttribute ("person") Person person))
+
+th:method="PATCH"
+В HTML5 используется только GET и POST, поэтому
+для того, чтобы передать HTTP метод PATCH
+(обновление данных) мы используем Thymeleaf
+и метод registerHiddenFieldFilter(ServletContext aContext)
+в файле MySpringMvcDispatcherServletInitializer
+
+th:method="PATCH" th:action="@{/people/{id}
+По этим признакам контроллер PeopleController
+понимает, что обрабатывать эту форму нужно в
+методе update()
+
+th:object="${person}
+сюда сохраняются обновленные поля объекта
+Person для последующей передачи в
+вышеуказанный метод update()
+
+th:field="*{fullName}", th:field="*{yearOfBirth}
+В эти поля объекта Person ("person")
+будут сохранятся новые значения из формы
+-->
+
+<!-- Примечания
+Тестируем готовую форму (страницу)
+после обработки всех слоев
+перейдя сюда по с ссылке на странице show.html
+или можно использовать прямую ссылку,
+например
+http://localhost:8080/people/1/edit
+
+После обработки этой формы мы показываем
+общий список people, чтобы увидеть
+изменения, которые мы внесли в Person
+(см метод update())
+return "redirect:/people";
+-->

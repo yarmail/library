@@ -10,12 +10,12 @@
 я страница index.html из папки people<br>
 controller people, метод index<br>
 выводим всех Person
-</p><br><br>
+</p><br/><br/>
 
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getPersonId()})}"
        th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">user</a>
-</div><br><br>
+</div><br/><br/>
 <hr/>
 
 <a href="/people/new">Добавить человека</a>

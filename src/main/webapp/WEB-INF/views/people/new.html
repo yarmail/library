@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>New person</title>
@@ -18,7 +18,7 @@
     <input type="text" th:field="*{fullName}" id="fullName"/><br><br>
 
     <label for="yearOfBirth">Введите год рождения: </label>
-    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
+    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/><br><br>
 
     <input type="submit" value="Create!"/>
 </form>

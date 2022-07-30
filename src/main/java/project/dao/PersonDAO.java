@@ -40,6 +40,15 @@ public class PersonDAO {
         jdbcTemplate.update("insert into Person(full_name, year_of_birth) values (?, ?)",
                 person.getFullName(), person.getYearOfBirth());
     }
+
+    public void update(int id, Person updatePerson) {
+        jdbcTemplate.update("update Person set full_name=?, year_of_birth=? where person_id=?",
+                updatePerson.getFullName(), updatePerson.getYearOfBirth(), id);
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("delete from Person where person_id=?", id);
+    }
 }
 /** JdbcTemplate
 
@@ -102,3 +111,8 @@ System.out.println(people);
  полученной с формы на странице
 
  */
+/** update() - обновить данные Person
+новыми данными
+ */
+/** delete() - удалить Person из базы
+*/

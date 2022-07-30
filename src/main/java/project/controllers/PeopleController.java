@@ -30,6 +30,7 @@ public class PeopleController {
         model.addAttribute("books", personDAO.getBooksByPersonId(id));
         return "people/show";
     }
+
     @GetMapping("/new")
     public String newPerson(Model model) {
         model.addAttribute("person", new Person());
@@ -41,6 +42,26 @@ public class PeopleController {
         personDAO.save(person);
         return "redirect:/people";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable ("id") int id, Model model) {
+        model.addAttribute("person", personDAO.show(id));
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute ("person") Person person,
+                            @PathVariable("id") int id) {
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        personDAO.delete(id);
+        return "redirect:/people";
+    }
+
 }
 /** @RequestMapping("/people")
 Данный контроллер будет обрабатывать все запросы
@@ -100,5 +121,52 @@ Model model
  После обработки формы перенаправляемся
  на страницу /people, чтобы увидеть вновь созданного
  Person в общем списке
+ */
+/** edit() update() - редактирование Person
+Примерно также, как было с созданием нового Person
+мы сначала по ссылке на редактирование заходитм
+на соотвествующую форму (страницу),
+а потом закрепляем это в БД
 
+edit()
+Обрабатывает ссылку типа
+people/{id}/edit со страницы show (или напрямую)
+
+@PathVariable ("id") int id
+Из сылки получаем id Person
+
+personDAO.show(id)
+По этому id находим Person
+
+заносим его в переменную "person"
+
+people/edit
+отправлем переменную на страницу
+и открывая эту страницу мы уже видим данные
+Person которые будем редактировать
+
+---
+
+update()
+Если я правильно понимаю,
+этот метот обрабатывает Patch запросы вида
+/people/{id}, где id берется из объекта
+"person", который мы отправляли для формы
+(страницы) edit в методе edit().
+Также оттуда приходит новый person
+@ModelAttribute ("person") Person person
+c обновленными данными Person'a
+Мы также берем id из ссылки, которую
+обрабатываем
+@PathVariable("id") int id
+и сохраняем измененного Person
+через DAO в БД
+personDAO.update(id, person);
+
+После обработки формы мы показываем
+общий список people, чтобы увидеть
+изменения, которые мы внесли в Person
+return "redirect:/people";
+ */
+/** delete() - удаление Person
  */
