@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.dao.BookDAO;
 import project.dao.PersonDAO;
+import project.models.Book;
 import project.models.Person;
 
 import java.util.Optional;
@@ -52,6 +53,17 @@ public class BooksController {
         bookDAO.assign(id, selectedPerson);
         return "redirect:/books/" + id;
     }
+
+    @GetMapping("/new")
+    public String newBook(@ModelAttribute("book") Book book) {
+        return "books/new";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("book") Book book) {
+        bookDAO.save(book);
+        return "redirect:/books";
+    }
 }
 
 /** personDAO
@@ -85,5 +97,8 @@ public class BooksController {
 /** assign() - присвоить(назначить) книгу
  новому владельцу
  После этого вернуться на ту же страницу show.html
+ */
+/** newBook(), create() - для создания новой книги
+ * Подробнее про похожие методы в PeopleController
  */
 

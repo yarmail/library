@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+
+<p>
+    я страница new.html из папки books<br>
+    BooksController, методы newBook(), create() <br>
+    заполняем форму с данными новой книги и создаем её
+</p><br><br>
+<hr/>
+
+<form th:method="POST" th:action="@{/books}" th:object="${book}">
+    <label for="title">Введите название книги: </label>
+    <input type="text" th:field="*{title}" id="title">
+    <br/>
+    <label for="author">Введите автора: </label>
+    <input type="text" th:field="*{author}" id="author" />
+    <br/>
+    <label for="year">Введите год: </label>
+    <input type="text" th:field="*{year}" id="year">
+    <br/>
+    <input type="submit" value="Создать"/>
+</form>
+</body>
+</html>
+
+<!-- Пояснения
+Страница для создания новой книги.
+Более подробные объяснения на похожей странице
+views/people/new.html
+-->
+
+<!-- Примечания
+Попасть на эту страницу можно по прямой ссылке
+http://localhost:8080/book/new
+
+или со страницы со списком всех книг
+views/books/index.html
+-->

@@ -46,11 +46,18 @@ public class BookDAO {
         jdbcTemplate.update(
         "update book set person_id=? where book_id =?", selectedPerson.getPersonId(), id);
     }
+
+    public void save(Book book) {
+        jdbcTemplate.update("insert into Book(title, author, year) values(?,?,?)",
+                book.getTitle(), book.getAuthor(), book.getYear());
+    }
+
+
 }
 /** index() - показать все книги
 (подробнее в PersonDAO)
  */
-/** show()
+/** show() - показать выбранную книгу
 Мы получаем на вход id книги и если такой id
 есть в базе - выдаем её, если нет, возвращаем null
 Используется для страницы views/books/show.html
@@ -70,4 +77,8 @@ Join'им таблицы Book и Person и получаем человека,
 Этот метод вызывается, когда человек получает книгу и становится
 её владельцем
 Используется на странице views/books/show.html
+ */
+/** save() - сохранить новую Книгу
+Используется при обработке формы для создания
+новой книги на страице views/books/new.html
  */
