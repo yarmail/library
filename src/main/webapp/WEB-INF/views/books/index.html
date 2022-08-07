@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index books</title>
+</head>
+<body>
+
+<p>
+    я страница index.html из папки books<br>
+    controller books, метод index<br>
+    выводим список всех книг
+</p><br/><br/>
+
+<div th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getBookId()})}"
+       th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
+</div><br/><br/>
+<hr/>
+
+<a href="/books/new">Добавить книгу</a>
+
+</body>
+</html>
+
+<!-- Пояснения
+
+Выводит список всех книг
+Работает примерно также как index.html из папки people
+(там более подробные объяснения)
+-->
+
+<!-- Примечания
+http://localhost:8080/books
+Запрос для проверки работы страницы.
+
+xmlns:th="http://www.thymeleaf.org"
+не забываем подключать Thymeleaf
+к каждой странице
+
+По мере добавления функционала добавляем ссылки.
+/books/new
+Добавляем ссылку страницы,
+для добавления новой книги
+-->

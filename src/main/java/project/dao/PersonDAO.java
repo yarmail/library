@@ -27,8 +27,8 @@ public class PersonDAO {
 
     public Person show(int id) {
         return jdbcTemplate.query("select * from Person where person_id=?",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).
-                stream().findAny().orElse(null);
+                new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                        .stream().findAny().orElse(null);
     }
 
     public List<Book> getBooksByPersonId(int id) {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show book</title>
+</head>
+<body>
+
+<p>
+    я страница show.html из папки books<br>
+    controller books, метод show<br>
+    выводим конкретную книгу по id
+</p><br/><br/>
+
+<p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
+
+<div th:if="${owner}">
+    <span>Книга сейчас у: </span> <span th:text="${owner.getFullName()}">Person name</span>
+
+    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getBookId()})}">
+        <input type="submit" value="Освободить книгу"/>
+    </form>
+</div>
+
+<div th:if="${people}">
+    <span>Эта книга свободна. Кому назначить ее?</span>
+    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getBookId()})}">
+        <label for="person">Выберите человека</label>
+        <select th:object="${person}" th:field="*{personId}" id="person">
+            <option th:each="person : ${people}" th:value="${person.getPersonId()}" th:text="${person.getFullName()}">
+            </option>
+        </select>
+        <input type="submit" value="Назначить книгу"/>
+    </form>
+</div>
+
+</body>
+</html>
+<!-- Пояснения
+Это наверное самая насыщенная страница проекта.
+
+th:text="${book.getTitle()...
+здесь используется "book" - для получения  данных по книге
+(слово value не отображается)
+
+th:if="${owner}"
+Если пользователь книги существует, передается его имя.
+Соответстенно здесь используется переменная "owner",
+если она существует (не пустая)
+
+th:method="PATCH" th:action="@{/books{id}/release
+Если "owner" существует, то мы предоставляем
+возможность "освободить" книгу - и эту
+форму отправляем методу release() контроллера
+BooksController
+
+th:if="${people} - (если есть список людей)
+Если "owner" не существует, то метод show()
+контроллера BooksController присылает
+"people" - список людей, из которых мы можем
+выбрать нового владельца книги
+
+<select> в сочетании с <option>
+показвает список людей (см. assign_book.png)
+
+-->
+<!-- Примечания
+На эту страницу можно попасть либо
+со страницы book/index.html
+(из общего списка по ссылке), либо можно по прямой ссылке,
+например http://localhost:8080/books/5
+
+-->
