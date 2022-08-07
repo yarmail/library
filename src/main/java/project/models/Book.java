@@ -1,7 +1,7 @@
 package project.models;
 
 public class Book {
-    private int id;
+    private int bookId;
     private String title;
     private String author;
     private int year;
@@ -15,12 +15,12 @@ public class Book {
         this.year = year;
     }
 
-    public int getId() {
-        return id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {

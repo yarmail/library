@@ -61,7 +61,6 @@ public class PeopleController {
         personDAO.delete(id);
         return "redirect:/people";
     }
-
 }
 /** @RequestMapping("/people")
 Данный контроллер будет обрабатывать все запросы
