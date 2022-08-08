@@ -34,6 +34,14 @@
     </form>
 </div>
 
+<form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getBookId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getBookId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
 </body>
 </html>
 <!-- Пояснения
@@ -62,6 +70,10 @@ th:if="${people} - (если есть список людей)
 
 <select> в сочетании с <option>
 показвает список людей (см. assign_book.png)
+
+Для редактирования и удаления книги добавляем
+соотвествующие формы как и в случае
+с Person
 
 -->
 <!-- Примечания

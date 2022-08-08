@@ -64,8 +64,25 @@ public class BooksController {
         bookDAO.save(book);
         return "redirect:/books";
     }
-}
 
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("book", bookDAO.show(id));
+        return "books/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("book") Book book, @PathVariable("id") int id) {
+        bookDAO.update(id, book);
+        return "redirect:/books";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        bookDAO.delete(id);
+        return "redirect:/books";
+    }
+}
 /** personDAO
 Помимо DAO для книг мы внедряем DAO для Person
 для использования в методе show()
@@ -101,4 +118,15 @@ public class BooksController {
 /** newBook(), create() - для создания новой книги
  * Подробнее про похожие методы в PeopleController
  */
+/** edit(), update() - редактирование книги
+edit()
+мы обрабатываем ссылку вида:
+http://localhost:8080/books/3/edit
 
+update()
+мы обрабатываемм форму на странице
+ */
+/** delete() - удалить книгу
+Используется на странице
+views/books/show.html
+ */

@@ -52,7 +52,14 @@ public class BookDAO {
                 book.getTitle(), book.getAuthor(), book.getYear());
     }
 
+    public void update(int id, Book updateBook) {
+        jdbcTemplate.update("update Book set title=?, author=?, year=? where book_id=?",
+                updateBook.getTitle(), updateBook.getAuthor(), updateBook.getYear(), id);
+    }
 
+    public void delete(int id) {
+        jdbcTemplate.update("delete from Book where book_id=?", id);
+    }
 }
 /** index() - показать все книги
 (подробнее в PersonDAO)
@@ -81,4 +88,15 @@ Join'им таблицы Book и Person и получаем человека,
 /** save() - сохранить новую Книгу
 Используется при обработке формы для создания
 новой книги на страице views/books/new.html
+ */
+/** update() - обновить данные книги
+Используется для редактирования книги
+в форме на странице
+views/books/edit.html
+ Также для показа в форме текущих данных книги
+ мы используем show()
+ */
+/** delete() - удалить книгу
+Используется на странице в форме
+views/books/show.html
  */
