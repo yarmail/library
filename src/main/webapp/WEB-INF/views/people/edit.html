@@ -14,11 +14,14 @@
 
 <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getPersonId()})}" th:object="${person}">
     <label for="fullName">Введите ФИО:</label>
-    <input type="text" th:field="*{fullName}" id="fullName"/><br/>
-
+    <input type="text" th:field="*{fullName}" id="fullName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full Name Error</div>
+    <br/>
     <label for="yearOfBirth">Введите год рождения:</label>
-    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/><br/>
+    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
     <input type="submit" value="Редактировать"/>
+    <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}"> Year of birth Error</div>
+    <br/>
 </form>
 
 </body>
@@ -77,4 +80,12 @@ http://localhost:8080/people/1/edit
 изменения, которые мы внесли в Person
 (см метод update())
 return "redirect:/people";
+-->
+
+<!-- Валидация
+th:if="${#fields.hasErrors('fullName')}...
+th:if="${#fields.hasErrors('yearOfBirth')}...
+Если в этих переменных есть ошибки, указанные в моделях -
+выводится надпись красного цвета - сообщения к этим ошибкам
+см validation_person_edit.png
 -->

@@ -3,19 +3,25 @@ package project.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.dao.PersonDAO;
 import project.models.Person;
+import project.util.PersonValidator;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.personValidator = personValidator;
     }
 
     @GetMapping()
@@ -38,7 +44,13 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") Person person) {
+    public String create(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
+        if (bindingResult.hasErrors()){
+            return "people/new";
+        }
+
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -50,8 +62,13 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute ("person") Person person,
-                            @PathVariable("id") int id) {
+    public String update(@ModelAttribute ("person") @Valid Person person,
+        BindingResult bindingResult, @PathVariable("id") int id) {
+
+        if (bindingResult.hasErrors()){
+            return "people/edit";
+        }
+
         personDAO.update(id, person);
         return "redirect:/people";
     }
@@ -107,21 +124,21 @@ Model model
 
 Далее создаем соотвествующее представление
  */
-/** newPerson() create()  - методы для создания нового Person
- newPerson()
- Данный контроллер обрабатывает GET запрос (ссылку)
- people/new и возвращает эту страницу с формой,
- добавляя туда пустой объект для заполнения
+/** newPerson(), create()  - методы для создания нового Person
+newPerson()
+Данный метод контроллера обрабатывает GET запрос (ссылку)
+people/new и возвращает эту страницу с формой,
+добавляя туда пустой объект для заполнения
 
- create()
- Обрабатывет запрос из формы в представлении, отправленные
- по адресу /people Post запросом, получает заполненный
- объект и сохраняет его в БД
- После обработки формы перенаправляемся
- на страницу /people, чтобы увидеть вновь созданного
- Person в общем списке
- */
-/** edit() update() - редактирование Person
+create()
+Обрабатывет запрос из формы в представлении, отправленные
+по адресу /people Post запросом, получает заполненный
+объект и сохраняет его в БД
+После обработки формы перенаправляемся
+на страницу /people, чтобы увидеть вновь созданного
+Person в общем списке
+*/
+/** edit(), update() - редактирование Person
 Примерно также, как было с созданием нового Person
 мы сначала по ссылке на редактирование заходитм
 на соотвествующую форму (страницу),
@@ -168,4 +185,37 @@ personDAO.update(id, person);
 return "redirect:/people";
  */
 /** delete() - удаление Person
+ */
+
+/** Валидация на уровне представления
+в методах create(), update()
+мы ставим @Valid перед объектами
+Когда значения из формы внедряются в наши объекты,
+происходит их проверка на ограничения в модели. Если
+есть ошибка, то она помещается в специальный
+объект, BindingResult, который мы ставим после
+нашего объекта (это важно). Далее мы делаем простую проверку -
+если ошибки при заполнении есть, то мы возвращаемся к
+той же форме, которую заполняли, повторно, и в представлении,
+показываем, что есть ошибка - возвращаем объект обратно
+и объект ошибки
+*/
+/** Валидация на уровне базы данных
+Мы сделали проверку данных, которые не нуждаются
+в запросе базы данных, теперь добавляем
+проверку и обработку сообщения от БД
+(при создании пользователя с полностью одинаковым ФИО)
+
+Внедряем объект PersonValidator и будем его использовать
+его в методе create():
+personValidator.validate(person, bindingResult);
+В качестве первого объекта мы передаем валидатору
+объект  person, который пришёл с формы, а в объект
+bindingResult будут складываться ошибки и от @Valid
+и от PersonValidator
+
+Тестируем ситуацию, создаем нового одинакового Person
+http://localhost:8080/people/new
+и смотрим теперь результат
+validation_full_name.png
  */

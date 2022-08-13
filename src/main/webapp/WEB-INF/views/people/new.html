@@ -15,14 +15,15 @@
 
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
     <label for="fullName">Введите ФИО:</label>
-    <input type="text" th:field="*{fullName}" id="fullName"/><br><br>
-
+    <input type="text" th:field="*{fullName}" id="fullName"/>
+    <div style="color: red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full name Error</div>
+    <br/>
     <label for="yearOfBirth">Введите год рождения: </label>
-    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/><br><br>
-
+    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
+    <div style="color: red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth Error</div>
+    <br/>
     <input type="submit" value="Create!"/>
 </form>
-
 </body>
 </html>
 
@@ -43,4 +44,12 @@ th:method="POST" th:action="@{/people}"
 th:object="${person}
 Указывает какой объект (переменная) будет
 заполняться и отправляться контроллеру create() на обработку
+-->
+
+<!-- Валидация
+th:if="${#fields.hasErrors('fullName')}...
+th:if="${#fields.hasErrors('yearOfBirth')}...
+Если в этих переменных есть ошибки, указанные в моделях -
+выводится надпись красного цвета - сообщения к этим ошибкам
+см. validation_person_edit.png
 -->

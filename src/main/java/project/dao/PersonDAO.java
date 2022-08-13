@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import project.models.Book;
 import project.models.Person;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
@@ -48,6 +49,11 @@ public class PersonDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("delete from Person where person_id=?", id);
+    }
+
+    public Optional<Person> getPersonByFullName(String fullName) {
+        return jdbcTemplate.query("select * from Person where full_name=?",
+                new Object[]{fullName}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 }
 /** JdbcTemplate
@@ -116,3 +122,8 @@ System.out.println(people);
  */
 /** delete() - удалить Person из базы
 */
+/** getPersonByFullName()
+Данный метод используется в папке util классом
+PersonValidator для валидации ситуации, когда
+мы создаем Person с одинаковым именем
+ */

@@ -3,12 +3,14 @@ package project.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.dao.BookDAO;
 import project.dao.PersonDAO;
 import project.models.Book;
 import project.models.Person;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -49,7 +51,8 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}/assign")
-    public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person selectedPerson) {
+    public String assign(@PathVariable("id") int id,
+                         @ModelAttribute("person") Person selectedPerson) {
         bookDAO.assign(id, selectedPerson);
         return "redirect:/books/" + id;
     }
@@ -60,7 +63,12 @@ public class BooksController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("book") Book book) {
+    public String create(@ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors())
+            return "books/new";
+
         bookDAO.save(book);
         return "redirect:/books";
     }
@@ -72,7 +80,12 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") Book book, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("book") @Valid Book book,
+            BindingResult bindingResult, @PathVariable("id") int id) {
+
+        if (bindingResult.hasErrors())
+            return "books/edit";
+
         bookDAO.update(id, book);
         return "redirect:/books";
     }
@@ -129,4 +142,10 @@ update()
 /** delete() - удалить книгу
 Используется на странице
 views/books/show.html
+ */
+
+/** Валидация объектов на уровне представления
+также как в PeopleController
+см описание подробнее там
+дописываем методы create(), update()
  */

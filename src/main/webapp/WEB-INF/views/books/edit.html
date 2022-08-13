@@ -15,15 +15,48 @@
 <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getBookId()})}" th:object="${book}">
     <label for="title"> Введите название книги: </label>
     <input type="text" th:field="*{title}" id="title"/>
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
     <br/>
     <label for="author">Введите автора: </label>
     <input type="text" th:field="*{author}" id="author"/>
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author Error</div>
     <br/>
     <label for="year">Введите год: </label>
     <input type="text" th:field="*{year}" id="year"/>
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</div>
     <br/>
     <input type="submit" value="Редактировать"/>
 </form>
 
 </body>
 </html>
+
+<!-- Пояснения
+Делаем примерно также, как в people/edit.html
+Подробнее там
+-->
+<!-- Примечания
+Тестируем готовую форму (страницу)
+после обработки всех слоев
+перейдя сюда по с ссылке на странице show.html
+или можно использовать прямую ссылку,
+например
+http://localhost:8080/books/1/edit
+
+После обработки этой формы мы показываем
+общий список books, чтобы увидеть
+изменения, которые мы внесли в Books
+(см метод update())
+return "redirect:/books";
+
+-->
+<!-- Валидация
+th:if="${#fields.hasErrors('title')}....
+th:if="${#fields.hasErrors('author')}...
+th:if="${#fields.hasErrors('year')}...
+Добавляем строку с проверкой
+также как как в people/edit.html
+-->
+
+
+
