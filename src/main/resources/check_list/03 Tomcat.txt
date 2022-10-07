@@ -15,17 +15,17 @@ Application server - Tomcat 9.0.58
 URL - http://localhost:8080/
 Также делаем Fix на
 Warning: No artifacts marked for deployment
-и выбираем library:war exploded
+и выбираем ProjectName:war exploded
 
 ---
 
 далее
 Во вкладке Deployment
 появляется выбраннный артефакт типа:
-library:war exploded
+ProjectName:war exploded
 
 Важный пункт в этой вкладке:
-Application context: /library_war_exploded
+Application context: /ProjectName_war_exploded
 можно заменить просто на: /
 тогда адрес обращения к сайту будет короче
 
@@ -37,7 +37,7 @@ Application context: /library_war_exploded
 в окне Before launch. В нормальном варианте
 там два пункта:
 Build
-Build 'library:War exploded' artifact
+Build 'ProjectName:War exploded' artifact
 
 ---
 
